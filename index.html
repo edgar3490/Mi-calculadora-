@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora Edgar 🧮</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            margin: 0;
+            transition: background-color 0.3s;
+        }
+
+        .calculadora {
+            background: #222;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        input {
+            width: 100%;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            text-align: right;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            background-color: #111;
+            font-family: 'Courier New', monospace;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        button {
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 8px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+
+        button.operador {
+            background-color: orange;
+        }
+
+        button.borrar {
+            background-color: red;
+        }
+
+        button.igual {
+            background-color: green;
+            color: white;
+            width: 130px;
+        }
+
+        .volver, .tema {
+            margin-top: 15px;
+            background-color: #555;
+            width: 100%;
+            padding: 15px;
+            font-size: 1em;
+        }
+
+        /* Modo Claro */
+        body.modo-claro {
+            background-color: #e2e2e2;
+        }
+
+        body.modo-claro .calculadora {
+            background: #ffffff;
+            color: black;
+        }
+
+        body.modo-claro input {
+            background-color: #f0f0f0;
+            color: black;
+        }
+
+        body.modo-claro button {
+            background-color: #ddd;
+            color: black;
+        }
+
+        body.modo-claro button.operador {
+            background-color: #f4b400;
+        }
+
+        body.modo-claro button.borrar {
+            background-color: #ff6b6b;
+        }
+
+        body.modo-claro button.igual {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        body.modo-claro .volver,
+        body.modo-claro .tema {
+            background-color: #bbb;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculadora">
+        <input type="text" id="pantalla" disabled>
+        <br>
+        <button class="borrar" onclick="borrar()">💀</button>
+        <button onclick="agregar('(')">(</button>
+        <button onclick="agregar(')')">)</button>
+        <button class="operador" onclick="agregar('/')">/</button><br>
+
+        <button onclick="agregar('7')">7</button>
+        <button onclick="agregar('8')">8</button>
+        <button onclick="agregar('9')">9</button>
+        <button class="operador" onclick="agregar('*')">×</button><br>
+
+        <button onclick="agregar('4')">4</button>
+        <button onclick="agregar('5')">5</button>
+        <button onclick="agregar('6')">6</button>
+        <button class="operador" onclick="agregar('-')">−</button><br>
+
+        <button onclick="agregar('1')">1</button>
+        <button onclick="agregar('2')">2</button>
+        <button onclick="agregar('3')">3</button>
+        <button class="operador" onclick="agregar('+')">+</button><br>
+
+        <button onclick="agregar('0')">0</button>
+        <button onclick="agregar('.')">.</button>
+        <button class="igual" onclick="operar()">=</button>
+
+        <!-- Botones adicionales -->
+        <button class="volver" onclick="volverLogin()">🔙 Volver al Login</button>
+        <button class="tema" onclick="cambiarTema()">🌗 Cambiar tema</button>
+    </div>
+
+    <script>
+        const pantalla = document.getElementById("pantalla");
+
+        function agregar(valor) {
+            pantalla.value += valor;
+        }
+
+        function borrar() {
+         pantalla.value = pantalla.value.slice(0, -1);
+    
+        }
+
+
+        function operar() {
+            try {
+                pantalla.value = eval(pantalla.value);
+            } catch {
+                pantalla.value = "Error";
+            }
+        }
+
+        function volverLogin() {
+            const confirmar = confirm("¿Estás seguro de que quieres volver al login?");
+            if (confirmar) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        function cambiarTema() {
+            document.body.classList.toggle("modo-claro");
+            const temaActual = document.body.classList.contains("modo-claro") ? "claro" : "oscuro";
+            localStorage.setItem("tema", temaActual);
+        }
+
+        // Al cargar, aplicar el tema guardado
+        window.onload = function () {
+            const temaGuardado = localStorage.getItem("tema");
+            if (temaGuardado === "claro") {
+                document.body.classList.add("modo-claro");
+            }
+        };
+
+        // Permitir usar Enter para calcular
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                operar();
+            }
+        });
+    </script>
+</body>
+</html>
