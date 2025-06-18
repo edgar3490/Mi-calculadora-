@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Calculadora Edgar 🧮</title>
     <style>
         body {
@@ -21,6 +21,8 @@
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0,0,0,0.4);
             transition: background 0.3s, color 0.3s;
+            width: 320px;
+            max-width: 90vw;
         }
 
         input {
@@ -35,12 +37,19 @@
             background-color: #111;
             font-family: 'Courier New', monospace;
             transition: background 0.3s, color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .fila-botones {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
         }
 
         button {
-            width: 60px;
+            flex: 1;
             height: 60px;
-            margin: 5px;
             font-size: 1.5em;
             border: none;
             border-radius: 8px;
@@ -48,6 +57,7 @@
             color: white;
             cursor: pointer;
             transition: background-color 0.2s;
+            min-width: 0;
         }
 
         button:hover {
@@ -65,7 +75,7 @@
         button.igual {
             background-color: green;
             color: white;
-            width: 130px;
+            flex: 2;
         }
 
         .volver, .tema {
@@ -74,6 +84,15 @@
             width: 100%;
             padding: 15px;
             font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .volver:hover, .tema:hover {
+            background-color: #666;
         }
 
         /* Modo Claro */
@@ -113,39 +132,64 @@
         body.modo-claro .tema {
             background-color: #bbb;
         }
+
+        /* Responsive para móvil */
+        @media (max-width: 400px) {
+            .calculadora {
+                width: 95vw;
+                padding: 15px;
+            }
+            button {
+                height: 50px;
+                font-size: 1.3em;
+            }
+            input {
+                font-size: 1.8em;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="calculadora">
-        <input type="text" id="pantalla" disabled>
-        <br>
-        <button class="borrar" onclick="borrar()">💀</button>
-        <button onclick="borrarTodo()">AC</button>
-        <button onclick="agregar('(')">(</button>
-        <button onclick="agregar(')')">)</button>
-        <button class="operador" onclick="agregar('/')">/</button><br>
+        <input type="text" id="pantalla" disabled />
 
-        <button onclick="agregar('7')">7</button>
-        <button onclick="agregar('8')">8</button>
-        <button onclick="agregar('9')">9</button>
-        <button class="operador" onclick="agregar('*')">×</button><br>
+        <div class="fila-botones">
+            <button class="borrar" onclick="borrar()">💀</button>
+            <button onclick="borrarTodo()">AC</button>
+            <button onclick="agregar('(')">(</button>
+            <button onclick="agregar(')')">)</button>
+            <button class="operador" onclick="agregar('/')">/</button>
+        </div>
 
-        <button onclick="agregar('4')">4</button>
-        <button onclick="agregar('5')">5</button>
-        <button onclick="agregar('6')">6</button>
-        <button class="operador" onclick="agregar('-')">−</button><br>
+        <div class="fila-botones">
+            <button onclick="agregar('7')">7</button>
+            <button onclick="agregar('8')">8</button>
+            <button onclick="agregar('9')">9</button>
+            <button class="operador" onclick="agregar('*')">×</button>
+        </div>
 
-        <button onclick="agregar('1')">1</button>
-        <button onclick="agregar('2')">2</button>
-        <button onclick="agregar('3')">3</button>
-        <button class="operador" onclick="agregar('+')">+</button><br>
+        <div class="fila-botones">
+            <button onclick="agregar('4')">4</button>
+            <button onclick="agregar('5')">5</button>
+            <button onclick="agregar('6')">6</button>
+            <button class="operador" onclick="agregar('-')">−</button>
+        </div>
 
-        <button onclick="agregar('0')">0</button>
-        <button onclick="agregar('.')">.</button>
-        <button class="igual" onclick="operar()">=</button>
+        <div class="fila-botones">
+            <button onclick="agregar('1')">1</button>
+            <button onclick="agregar('2')">2</button>
+            <button onclick="agregar('3')">3</button>
+            <button class="operador" onclick="agregar('+')">+</button>
+        </div>
 
-        <!-- Botones adicionales -->
+        <div class="fila-botones">
+            <button onclick="agregar('0')">0</button>
+            <button onclick="agregar('.')">.</button>
+            <button class="igual" onclick="operar()">=</button>
+        </div>
+
         <button class="volver" onclick="volverLogin()">🔙 Volver al Login</button>
         <button class="tema" onclick="cambiarTema()">🌗 Cambiar tema</button>
     </div>
@@ -158,14 +202,12 @@
         }
 
         function borrar() {
-         pantalla.value = pantalla.value.slice(0, -1);
-    
+            pantalla.value = pantalla.value.slice(0, -1);
         }
+
         function borrarTodo() {
-         pantalla.value = '';
+            pantalla.value = '';
         }
-
-
 
         function operar() {
             try {
@@ -188,7 +230,6 @@
             localStorage.setItem("tema", temaActual);
         }
 
-        // Al cargar, aplicar el tema guardado
         window.onload = function () {
             const temaGuardado = localStorage.getItem("tema");
             if (temaGuardado === "claro") {
@@ -196,12 +237,12 @@
             }
         };
 
-        // Permitir usar Enter para calcular
         document.addEventListener("keydown", function(event) {
             if (event.key === "Enter") {
                 operar();
             }
         });
     </script>
+
 </body>
 </html>
