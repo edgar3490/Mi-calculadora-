@@ -121,6 +121,7 @@
         <input type="text" id="pantalla" disabled>
         <br>
         <button class="borrar" onclick="borrar()">💀</button>
+        <button onclick="borrarTodo()">AC</button>
         <button onclick="agregar('(')">(</button>
         <button onclick="agregar(')')">)</button>
         <button class="operador" onclick="agregar('/')">/</button><br>
@@ -160,6 +161,10 @@
          pantalla.value = pantalla.value.slice(0, -1);
     
         }
+        function borrarTodo() {
+         pantalla.value = '';
+        }
+
 
 
         function operar() {
