@@ -12,7 +12,6 @@
             height: 100vh;
             background-color: #f5f5f5;
             margin: 0;
-            transition: background-color 0.3s;
         }
 
         .calculadora {
@@ -20,7 +19,6 @@
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0,0,0,0.4);
-            transition: background 0.3s, color 0.3s;
             width: 320px;
             max-width: 90vw;
         }
@@ -36,7 +34,6 @@
             color: white;
             background-color: #111;
             font-family: 'Courier New', monospace;
-            transition: background 0.3s, color 0.3s;
             box-sizing: border-box;
         }
 
@@ -78,7 +75,7 @@
             flex: 2;
         }
 
-        .volver, .tema {
+        .volver {
             margin-top: 15px;
             background-color: #555;
             width: 100%;
@@ -91,67 +88,116 @@
             transition: background-color 0.3s;
         }
 
-        .volver:hover, .tema:hover {
+        .volver:hover {
             background-color: #666;
         }
 
-        /* Modo Claro */
-        body.modo-claro {
-            background-color: #e2e2e2;
-        }
-
-        body.modo-claro .calculadora {
-            background: #ffffff;
-            color: black;
-        }
-
-        body.modo-claro input {
-            background-color: #f0f0f0;
-            color: black;
-        }
-
-        body.modo-claro button {
-            background-color: #ddd;
-            color: black;
-        }
-
-        body.modo-claro button.operador {
-            background-color: #f4b400;
-        }
-
-        body.modo-claro button.borrar {
-            background-color: #ff6b6b;
-        }
-
-        body.modo-claro button.igual {
-            background-color: #4caf50;
-            color: white;
-        }
-
-        body.modo-claro .volver,
-        body.modo-claro .tema {
-            background-color: #bbb;
-        }
-
-        /* Responsive para móvil */
-        @media (max-width: 400px) {
+        /* Responsive para móvil mejorado */
+        @media (max-width: 500px) {
             .calculadora {
-                width: 95vw;
-                padding: 15px;
+                width: 100vw;
+                padding: 25px;
+                border-radius: 0;
+                box-shadow: none;
             }
-            button {
-                height: 50px;
-                font-size: 1.3em;
-            }
+
             input {
+                font-size: 2.4em;
+                padding: 18px;
+            }
+
+            button {
+                height: 70px;
                 font-size: 1.8em;
-                padding: 10px;
+            }
+
+            .volver {
+                font-size: 1.3em;
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="calculadora">
+        <input type="text" id="pantalla" disabled />
 
+        <div class="fila-botones">
+            <button class="borrar" onclick="borrar()">💀</button>
+            <button onclick="borrarTodo()">AC</button>
+            <button onclick="agregar('(')">(</button>
+            <button onclick="agregar(')')">)</button>
+            <button class="operador" onclick="agregar('/')">/</button>
+        </div>
+
+        <div class="fila-botones">
+            <button onclick="agregar('7')">7</button>
+            <button onclick="agregar('8')">8</button>
+            <button onclick="agregar('9')">9</button>
+            <button class="operador" onclick="agregar('*')">×</button>
+        </div>
+
+        <div class="fila-botones">
+            <button onclick="agregar('4')">4</button>
+            <button onclick="agregar('5')">5</button>
+            <button onclick="agregar('6')">6</button>
+            <button class="operador" onclick="agregar('-')">−</button>
+        </div>
+
+        <div class="fila-botones">
+            <button onclick="agregar('1')">1</button>
+            <button onclick="agregar('2')">2</button>
+            <button onclick="agregar('3')">3</button>
+            <button class="operador" onclick="agregar('+')">+</button>
+        </div>
+
+        <div class="fila-botones">
+            <button onclick="agregar('0')">0</button>
+            <button onclick="agregar('.')">.</button>
+            <button class="igual" onclick="operar()">=</button>
+        </div>
+
+        <button class="volver" onclick="volverLogin()">🔙 Volver al Login</button>
+    </div>
+
+    <script>
+        const pantalla = document.getElementById("pantalla");
+
+        function agregar(valor) {
+            pantalla.value += valor;
+        }
+
+        function borrar() {
+            pantalla.value = pantalla.value.slice(0, -1);
+        }
+
+        function borrarTodo() {
+            pantalla.value = '';
+        }
+
+        function operar() {
+            try {
+                pantalla.value = eval(pantalla.value);
+            } catch {
+                pantalla.value = "Error";
+            }
+        }
+
+        function volverLogin() {
+            const confirmar = confirm("¿Estás seguro de que quieres volver al login?");
+            if (confirmar) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                operar();
+            }
+        });
+    </script>
+</body>
+</html>
     <div class="calculadora">
         <input type="text" id="pantalla" disabled />
 
@@ -246,3 +292,4 @@
 
 </body>
 </html>
+
