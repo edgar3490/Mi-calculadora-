@@ -4,145 +4,164 @@
     <meta charset="UTF-8" />
     <title>Calculadora Edgar 🧮</title>
     <style>
-       body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
-    margin: 0;
-}
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-.calculadora {
-    background: #222;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-    width: 320px;
-    max-width: 90vw;
-    box-sizing: border-box;
-}
+        .calculadora {
+            background: #222;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            width: 320px;
+            max-width: 90vw;
+            box-sizing: border-box;
+        }
 
-input {
-    width: 100%;
-    font-size: 2.2em;
-    margin-bottom: 15px;
-    text-align: right;
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    background-color: #111;
-    font-family: 'Courier New', monospace;
-    box-sizing: border-box;
-    outline: none;
-}
+        input {
+            width: 100%;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            text-align: right;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            background-color: #111;
+            font-family: 'Courier New', monospace;
+            box-sizing: border-box;
+            outline: none;
+        }
 
-/* Contenedor de filas de botones */
-.fila-botones {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
+        .fila-botones {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
 
-/* Botones generales */
-button {
-    flex: 1;
-    height: 60px;
-    font-size: 1.5em;
-    border: none;
-    border-radius: 8px;
-    background-color: #333;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-    min-width: 0;
-}
+        button {
+            flex: 1;
+            height: 60px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 8px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            min-width: 0;
+        }
 
-button:hover {
-    background-color: #444;
-}
+        button:hover {
+            background-color: #444;
+        }
 
-button:active {
-    transform: scale(0.95);
-}
+        button:active {
+            transform: scale(0.95);
+        }
 
-/* Botones especiales */
-button.operador {
-    background-color: orange;
-}
+        button.operador {
+            background-color: orange;
+        }
 
-button.operador:hover {
-    background-color: #e69500;
-}
+        button.operador:hover {
+            background-color: #e69500;
+        }
 
-button.borrar {
-    background-color: #e53935;
-}
+        button.borrar {
+            background-color: #e53935;
+        }
 
-button.borrar:hover {
-    background-color: #d32f2f;
-}
+        button.borrar:hover {
+            background-color: #d32f2f;
+        }
 
-button.igual {
-    background-color: #43a047;
-    color: #fff;
-    flex: 2;
-}
+        button.igual {
+            background-color: #43a047;
+            color: #fff;
+            flex: 2;
+        }
 
-button.igual:hover {
-    background-color: #388e3c;
-}
+        button.igual:hover {
+            background-color: #388e3c;
+        }
 
-/* Botón volver */
-.volver {
-    margin-top: 15px;
-    background-color: #555;
-    width: 100%;
-    padding: 15px;
-    font-size: 1em;
-    border-radius: 8px;
-    cursor: pointer;
-    border: none;
-    color: white;
-    transition: background-color 0.3s, transform 0.1s;
-}
+        .volver, .tema {
+            margin-top: 10px;
+            background-color: #555;
+            width: 100%;
+            padding: 15px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            color: white;
+            transition: background-color 0.3s, transform 0.1s;
+        }
 
-.volver:hover {
-    background-color: #666;
-}
+        .volver:hover, .tema:hover {
+            background-color: #666;
+        }
 
-.volver:active {
-    transform: scale(0.97);
-}
+        .volver:active, .tema:active {
+            transform: scale(0.97);
+        }
 
-/* Responsive mejorado */
-@media (max-width: 500px) {
-    .calculadora {
-        width: 100vw;
-        padding: 25px;
-        border-radius: 0;
-        box-shadow: none;
-    }
+        /* Modo claro */
+        .modo-claro {
+            background-color: #e6e6e6;
+            color: #111;
+        }
 
-    input {
-        font-size: 2.4em;
-        padding: 18px;
-    }
+        .modo-claro .calculadora {
+            background: #fff;
+        }
 
-    button {
-        height: 70px;
-        font-size: 1.8em;
-    }
+        .modo-claro input {
+            background-color: #f0f0f0;
+            color: #000;
+        }
 
-    .volver {
-        font-size: 1.3em;
-        padding: 20px;
-    }
-}
+        .modo-claro button {
+            background-color: #ddd;
+            color: #000;
+        }
 
+        .modo-claro button:hover {
+            background-color: #ccc;
+        }
+
+        @media (max-width: 500px) {
+            .calculadora {
+                width: 100vw;
+                padding: 25px;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            input {
+                font-size: 2.4em;
+                padding: 18px;
+            }
+
+            button {
+                height: 70px;
+                font-size: 1.8em;
+            }
+
+            .volver, .tema {
+                font-size: 1.3em;
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -185,86 +204,7 @@ button.igual:hover {
         </div>
 
         <button class="volver" onclick="volverLogin()">🔙 Volver al Login</button>
-    </div>
-
-    <script>
-        const pantalla = document.getElementById("pantalla");
-
-        function agregar(valor) {
-            pantalla.value += valor;
-        }
-
-        function borrar() {
-            pantalla.value = pantalla.value.slice(0, -1);
-        }
-
-        function borrarTodo() {
-            pantalla.value = '';
-        }
-
-        function operar() {
-            try {
-                pantalla.value = eval(pantalla.value);
-            } catch {
-                pantalla.value = "Error";
-            }
-        }
-
-        function volverLogin() {
-            const confirmar = confirm("¿Estás seguro  que quieres volver al login?");
-            if (confirmar) {
-                window.location.href = 'login.html';
-            }
-        }
-
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                operar();
-            }
-        });
-    </script>
-</body>
-</html>
-    <div class="calculadora">
-        <input type="text" id="pantalla" disabled />
-
-        <div class="fila-botones">
-            <button class="borrar" onclick="borrar()">💀</button>
-            <button onclick="borrarTodo()">AC</button>
-            <button onclick="agregar('(')">(</button>
-            <button onclick="agregar(')')">)</button>
-            <button class="operador" onclick="agregar('/')">/</button>
-        </div>
-
-        <div class="fila-botones">
-            <button onclick="agregar('7')">7</button>
-            <button onclick="agregar('8')">8</button>
-            <button onclick="agregar('9')">9</button>
-            <button class="operador" onclick="agregar('*')">×</button>
-        </div>
-
-        <div class="fila-botones">
-            <button onclick="agregar('4')">4</button>
-            <button onclick="agregar('5')">5</button>
-            <button onclick="agregar('6')">6</button>
-            <button class="operador" onclick="agregar('-')">−</button>
-        </div>
-
-        <div class="fila-botones">
-            <button onclick="agregar('1')">1</button>
-            <button onclick="agregar('2')">2</button>
-            <button onclick="agregar('3')">3</button>
-            <button class="operador" onclick="agregar('+')">+</button>
-        </div>
-
-        <div class="fila-botones">
-            <button onclick="agregar('0')">0</button>
-            <button onclick="agregar('.')">.</button>
-            <button class="igual" onclick="operar()">=</button>
-        </div>
-
-        <button class="volver" onclick="volverLogin()">🔙back to login</button>
-        <button class="tema" onclick="cambiarTema()">🌗 Change of art</button>
+        <button class="tema" onclick="cambiarTema()">🌗 Cambiar tema</button>
     </div>
 
     <script>
@@ -316,7 +256,5 @@ button.igual:hover {
             }
         });
     </script>
-
 </body>
 </html>
-
